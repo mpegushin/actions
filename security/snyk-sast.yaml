@@ -1,0 +1,24 @@
+name: "Snyk SAST"
+description: "Check your code for vulnerabilties using Snyk"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: "code test"
+  args:
+    description: "Additional arguments to pass to Snyk"
+  json:
+    description: "Output a snyk.json file with results if running the test command"
+    default: false
+  sarif:
+    description: "Output a snyk.sarif file with results if running the test command"
+    default: true
+runs:
+  using: "docker"
+  image: "docker://snyk/snyk:alpine"
+  args:
+  - snyk
+  - ${{ inputs.command }}
+  - ${{ inputs.args }}
